@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>全部简答题 - JAVA-EE 复习</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #1557b0;
+            transform: translateY(-1px);
+        }
+
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .chapter-section {
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-title {
+            color: #1a73e8;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .question-item {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #1a73e8;
+        }
+
+        .question-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 4px;
+            border-left: 3px solid #34a853;
+        }
+
+        .toggle-button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-button:hover {
+            background: #1557b0;
+        }
+
+        .toggle-all-button {
+            background: #34a853;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 20px 0;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-all-button:hover {
+            background: #2d8e47;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+
+            .chapter-section {
+                background: #2d2d2d;
+            }
+
+            .question-item {
+                background: #333;
+            }
+
+            .answer {
+                background: #2d2d2d;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .chapter-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">返回主页</a>
+    <h1>全部简答题</h1>
+    
+    <button class="toggle-all-button" onclick="toggleAllAnswers()">显示/隐藏所有答案</button>
+
+    <div id="questions-container">
+        <!-- 问题将通过JavaScript动态加载 -->
+    </div>
+
+    <script>
+        // 题目数据
+        const questions = [
+              // 第二章
+              {
+                chapter: "第二章",
+                title: "1. 安装Tomcat服务器所在的计算机需要事先安装JDK吗？",
+                answer: "需要事先安装JDK。"
+            },
+            {
+                chapter: "第二章",
+                title: "2. Tomcat服务器的默认端口，如果想修改该端口号，应该修改哪个文件？",
+                answer: "8080是Tomcat服务器默认占用的端口。端口号可以通过修改Tomcat的配置文件进行修改端口号。用记事本打开conf文件夹下的server.xml文件"
+            },
+            {
+                chapter: "第二章",
+                title: "3. First.jsp和first.jsp是否为相同的JSP文件名?",
+                answer: "First.jsp和first.jsp是不相同的JSP文件名字。"
+            },
+            {
+                chapter: "第二章",
+                title: "4. JSP引擎是怎样处理JSP页面中的HTML标记的?",
+                answer: "JSP引擎将JSP页面中的HTML标记直接交给客户端浏览器执行显示。"
+            },
+
+            // 第三章
+            {
+                chapter: "第三章",
+                title: "1. JSP页面由哪几种主要元素组成?",
+                answer: "(1）普通的HTML标记。\n(2）JSP注释。\n(3）Java脚本元素，包括声明、Java程序片和Java表达式。\n(4）JSP标记，如指令标记、动作标记和自定义标记等。"
+            },
+            {
+                chapter: "第三章",
+                title: "2. 如果有3个用户访问一个JSP页面，则该JSP页面中的Java程序片将被行几次？",
+                answer: "3次"
+            },
+            {
+                chapter: "第三章",
+                title: "3. \"<%!\" 和 \"%>\"之间声明的变量与\"<%\"和\"%>\"之间声明的变量有何不同?",
+                answer: "在 <%! 和 %> 之间声明的变量是成员变量，在整个 JSP 页面中有效，并且多个用户共享，因此修改结果会影响其他用户。\n在 <% 和 %> 之间声明的变量是局部变量，仅在当前请求的线程中有效，每个用户的线程有独立的内存空间，不会影响其他用户。"
+            },
+            {
+                chapter: "第三章",
+                title: "4. 动作标记include和指令标记include的区别是什么？",
+                answer: "<jsp:include> 是动态包含，在请求时执行，可以传递参数；<%@ include %> 是静态包含，在页面编译时执行，不能传递参数。"
+            },
+            {
+                chapter: "第三章",
+                title: "5. 在一个JSP页面中是否允许使用page指令为contentType属性设置多个值?是否允许使用page指令为import属性设置多个值？",
+                answer: "1. 不允许\n2. 允许"
+            },
+
+            // 第四章
+            {
+                chapter: "第四章",
+                title: "1. 什么对象是JSP内置对象？常见的内置对象有哪些？",
+                answer: "有些对象在JSP页面中不需要声明和实例化，可以直接在Java程序片和Java表达式部分使用，称这样的对象为JSP内置对象。\n\n包括request、response、out、session、application、page、pageContext、exception和config。"
+            },
+            {
+                chapter: "第四章",
+                title: "2. request、session 和 application 对象的作用域是什么？它们之间有什么区别?",
+                answer: "request: 作用域是单个 HTTP 请求，在每次请求时创建，并在请求结束后销毁。\n\nsession: 作用域是单个用户会话，跨多个请求，通常会在用户关闭浏览器或会话过期时结束。\n\napplication: 作用域是整个 Web 应用程序，从应用启动到停止，生命周期长，跨多个请求和会话。\n\n区别：\nrequest存储的是与当前请求相关的数据，生命周期最短，仅限于单个请求。\nsession 存储的是跨多个请求的数据，与用户会话绑定，生命周期较长。\napplication 存储的是全局的数据和配置，生命周期最长，跨请求、会话和整个应用程序。"
+            },
+            {
+                chapter: "第四章",
+                title: "3. 一个用户在不同 Web 服务中的 session 对象相同吗？一个用户在同一 Web 服务的不同子目录中的 session 对象相同吗？",
+                answer: "不相同，相同。"
+            },
+            {
+                chapter: "第四章",
+                title: "4. session 对象的生命周期依赖于哪些因素?",
+                answer: "用户是否关闭浏览器；\n\nsession对象是否调用invalidateQ方法；\n\nsession对象是否达到设置的最长发呆时间。"
+            },
+            {
+                chapter: "第四章",
+                title: "5. 简述forward 动作标记与response.sendRedirectO两种跳转的区别。",
+                answer: "forward：服务器内部跳转，客户端 URL 不变。\n\nresponse.sendRedirect：客户端跳转，浏览器重新发起请求，URL 发生变化。"
+            },
+
+            // 第六章
+            {
+                chapter: "第六章",
+                title: "1. Servlet对象是在服务器端被创建的，还是在用户端被创建的？",
+                answer: "servlet对象是在服务器端被创建。"
+            },
+            {
+                chapter: "第六章",
+                title: "2. 什么是转发？什么是定向？它们有什么区别？",
+                answer: "重定向是将用户从当前JSP页面或Servlet定向到另一个JSP页面或Servlet，以前的request存放的信息全部失效，并进入一个新的request作用域；\n\n转发是将用户对当前JSP页面或Servlet的请求转发给另一个JSP页面或Servlet，以前的request中存放的信息不会失效。"
+            },
+            {
+                chapter: "第六章",
+                title: "3. 简述Servlet的生命周期与运行原理。",
+                answer: "Servlet 的生命周期包括初始化（init()）、请求处理（service()）和销毁（destroy()）。客户端请求时，容器调用 service() 处理请求并返回响应。应用结束时，容器调用 destroy() 进行清理。"
+            },
+            {
+                chapter: "第六章",
+                title: "4. Servlet对象初始化时是调用init方法还是service方法？",
+                answer: "调用init()方法"
+            },
+
+            // 第七章
+            {
+                chapter: "第七章",
+                title: "1. 会话跟踪技术有哪些？",
+                answer: "主要Cookie技术、\nsession技术、\nURL重写技术\n隐藏表单域技术。"
+            },
+            {
+                chapter: "第七章",
+                title: "2. 在工程实践中为什么要进行会话跟踪？",
+                answer: "HTTP 协议是状态的，意味着服务器不会记录客户端的任何信息，每次请求都是独立���。这在实际应用中不可行。而会话技术则可以在服务器端保存客户端的信息，记录客户端与服务器之间的一系列请求。"
+            },
+            {
+                chapter: "第七章",
+                title: "3. 浏览器禁用Cookie后，如何进行会话跟踪？",
+                answer: "当不能确定客户端浏览器是否支持Cookie的情况下，使用URL重写技术可以对请求的URL地址追加会话标识，从而实现用户的会话跟踪功能。"
+            },
+
+            // 第八章
+            {
+                chapter: "第八章",
+                title: "1. 简述过滤器的运行原理",
+                answer: "过滤器位于服务器处理请求之前或响应之前，可以过滤浏览器发送到服务器的请求，也可以过滤服务器返回给浏览器的响应"
+            },
+            {
+                chapter: "第八章",
+                title: "2. Filter接口中有哪些方法？它们分别具有什么功能？",
+                answer: "init()：初始化过滤器，获取配置参数。\n\ndoFilter()：处理请求和响应，可以进行预处理或后处理。\n\ndestroy()：销毁过滤器进行资源清理。"
+            },
+            {
+                chapter: "第八章",
+                title: "3. 过滤器可以实现哪些常用功能？",
+                answer: "1.编码过滤：设置请求和响应的字符编码。\n\n2.判断登录状态：检查用户是否登录未登录则重定向。\n\n3.日志记录：记录请求信息，如 URL 和时间。\n\n4.权限检查：验证用户是否有权限访问资源。"
+            },
+            {
+                chapter: "第八章",
+                title: "4. 简述监听器的分类。",
+                answer: "根据监听的对象可将监听器划分为：ServletContext对象监听器、HttpSession对象监听器以及ServletRequest对象监听器。\n\n根据监听的事件可将监听器划分为：对象自身的创建和销毁的监听器、对象中属性的创建、修改和消除的监听器以及session中某个对象状态变化的监听器。"
+            },
+            {
+                chapter: "第八章",
+                title: "5. 哪种监听器不需要部署？",
+                answer: "被实现钝化和活化的监听器对象必须实现Serializable接，不需要部署"
+            },
+
+            // 第十章
+            {
+                chapter: "第十章",
+                title: "1. 基于表单文件上传需要注意什么？",
+                answer: "1.不要忘记使用enctype属性，并将它的值设置为multipart/form-data。\n\n2.表单的提交方式设置为post。"
+            },
+            {
+                chapter: "第十章",
+                title: "2. 文件下载实现方法有哪些？它们的优缺点是什么？",
+                answer: "1.通过超链接下载，简单但暴露文件位置且只能下载应用目录下的文件；\n\n2.通过程序编码下载，提供更高的安全性，可以控制访问并支持从任意位置（包括数据库）下载文件。"
+            },
+
+            // 第十一章
+            {
+                chapter: "第十一章",
+                title: "1. JDBC能完成哪些工作？",
+                answer: "1.与指定的数据库建立连接；\n\n2.向已连接的数据库发送SQL命令；\n\n3.处理SQL命令返回的结果。"
+            },
+            {
+                chapter: "第十一章",
+                title: "2. 使用纯Java数据库驱动程序访问数据库时，有哪些步骤？",
+                answer: "（1）注册纯Java数据库驱动程序\n\n（2）和指定的数据库建立连接"
+            },
+            {
+                chapter: "第十一章",
+                title: "3. JDBC连接数据的常用方式有哪些？",
+                answer: "建立JDBC-ODBC桥接器和加载纯Java驱动程序。"
+            },
+
+            // 第十四章
+            {
+                chapter: "第十四章",
+                title: "1. 在Struts2的Action类中访问ServletAPI有哪几种方法？其中与HttpServlet耦合的方法是哪几种？",
+                answer: "1.通过ActionContext，实现RequestAware、SessionAware和ApplicationAware接口；\n\n2.通过ServletActionContext以及实现ServletRequestAware接口等方式。\n\n其中与HttpServlet耦合的方法有：通过ServletActionContext以及实现ServletRequestAware接口等方式。"
+            },
+            {
+                chapter: "第十四章",
+                title: "2. 结果类型redirect与redirectAction的区别是什么？",
+                answer: "redirect：可以重定向到 JSP 页面、其他 Action 或外部网站\n\nredirectAction：仅能重定向到另一个 Action，通常用于在同一个应用内进行请求转发"
+            },
+            {
+                chapter: "第十四章",
+                title: "3. 在Action中接收请求参数有哪几种方式？你认为哪种方式比较方便？",
+                answer: "使用Action属性收参数、使用DomainModel（实体）接收参数和使用ModelDriven<T>接口接收参数。\n\n最方便的方式通常是使用 ModelDriven 接口，因为它支持将多个请求参数自动映射到一个实体类对象"
+            },
+
+            // 第十五章
+            {
+                chapter: "第十五章",
+                title: "1. 在开发SpringMVC应用时如何部署DispatcherServlet？又如何创建SpringMVC的配置文件？",
+                answer: "在 web.xml 中配置 DispatcherServlet，并设置映射路径。比如：\n\n<servlet>\n    <servlet-name>dispatcher</servlet-name>\n    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n    <init-param>\n        <param-name>contextConfigLocation</param-name>\n        <param-value>/WEB-INF/spring-mvc-config.xml</param-value>\n    </init-param>\n    <load-on-startup>1</load-on-startup>\n</servlet>\n\n<servlet-mapping>\n    <servlet-name>dispatcher</servlet-name>\n    <url-pattern>/</url-pattern>\n</servlet-mapping>\n\n创建 SpringMVC 配置文件：通常创建一个 spring-mvc-config.xml 文件，用于配置视图解析器、控制器、拦截器等。"
+            },
+            {
+                chapter: "第十五章",
+                title: "2. 简述SpringMVC的工作流程。",
+                answer: "（1）客户端请求��交到DispatcherServlet;\n（2）由DispatcherServlet控制器寻找一个或多个HandlerMapping，找到处理请求的Controller;\n（3）DispatcherServlet将请求提交到Controller;\n（4）Controller调用业务逻辑处理后，返回ModelAndView;\n（5）DispatcherServlet寻找一个或多个ViewResoler视图解析器，找到ModelAndView指定的视图；\n（6）视图负责将结果显示到客户端。"
+            },
+            {
+                chapter: "第十五章",
+                title: "3. 举例说明数据绑定的优点。",
+                answer: "数据绑定的优点在于简化了从请求参数到对象属性的转换。"
+            },
+            {
+                chapter: "第十五章",
+                title: "4. SpringMVC有哪些表单标签？其中，可以绑定集合数据的标签有哪些？",
+                answer: "表单标签库中有form、input、password、hidden、textarea、checkbox、checkboxes、radiobutton、radiobuttons、select、option、options、errors。\n\n绑定数据集的标签有checkboxes、radiobuttons和select。"
+            },
+            {
+                chapter: "第十五章",
+                title: "5. @ModelAttribute可实现哪些功能？",
+                answer: "1.绑定请求参数到实体对象（表的命令对象）\n\n2.注解一个非请处理方法"
+            }
+        ];
+
+        function createChapterSections() {
+            const container = document.getElementById('questions-container');
+            const chapters = new Set(questions.map(q => q.chapter));
+            
+            chapters.forEach(chapter => {
+                const chapterSection = document.createElement('div');
+                chapterSection.className = 'chapter-section';
+                
+                const chapterTitle = document.createElement('h2');
+                chapterTitle.className = 'chapter-title';
+                chapterTitle.textContent = chapter;
+                chapterSection.appendChild(chapterTitle);
+                
+                const chapterQuestions = questions.filter(q => q.chapter === chapter);
+                chapterQuestions.forEach(question => {
+                    const questionItem = document.createElement('div');
+                    questionItem.className = 'question-item';
+                    
+                    const questionTitle = document.createElement('div');
+                    questionTitle.className = 'question-title';
+                    questionTitle.textContent = question.title;
+                    
+                    const answer = document.createElement('div');
+                    answer.className = 'answer';
+                    answer.textContent = question.answer;
+                    
+                    const toggleButton = document.createElement('button');
+                    toggleButton.className = 'toggle-button';
+                    toggleButton.textContent = '显示答案';
+                    toggleButton.onclick = () => {
+                        const isHidden = answer.style.display === 'none' || answer.style.display === '';
+                        answer.style.display = isHidden ? 'block' : 'none';
+                        toggleButton.textContent = isHidden ? '隐藏答案' : '显示答案';
+                    };
+                    
+                    questionItem.appendChild(questionTitle);
+                    questionItem.appendChild(answer);
+                    questionItem.appendChild(toggleButton);
+                    chapterSection.appendChild(questionItem);
+                });
+                
+                container.appendChild(chapterSection);
+            });
+        }
+
+        function toggleAllAnswers() {
+            const answers = document.querySelectorAll('.answer');
+            const buttons = document.querySelectorAll('.toggle-button');
+            const firstAnswer = answers[0];
+            const isHidden = firstAnswer.style.display === 'none' || firstAnswer.style.display === '';
+            
+            answers.forEach(answer => {
+                answer.style.display = isHidden ? 'block' : 'none';
+            });
+            
+            buttons.forEach(button => {
+                button.textContent = isHidden ? '隐藏答案' : '显示答案';
+            });
+        }
+
+        // 页面加载时初始化
+        window.onload = function() {
+            createChapterSections();
+        };
+    </script>
+</body>
+</html> 

@@ -1,0 +1,701 @@
+第一章
+
+1. 在以下标记中，用于设置页面标题的是()
+A. <title>
+B. <caption>
+C. <head>
+D. <html>
+答案：A
+
+
+
+2. 若设计网页的背景图形为bg.png，在以下标记中正确的是()
+A. <body background="bg.png">
+B. <body bground="bg.png">
+C. <body image="bg.png">
+D. <body bgcolor="bg.png">
+答案：A
+
+
+
+3. 下列关于HTML 文件的说法正确的是()
+A. HTML标记都必须配对使用
+B. 在<title>和</title>标记之间的是头信息
+C. HTML 标记是区分大小写的，<B>跟<b>表示的意思是不一样的
+D. <!-- -->标记是注释标记
+答案： D
+
+
+
+4. 下列()表示的不是按钮。
+A. type="submit"
+B. type="reset"
+C. type="myButton"
+D. type="button"
+答案：C
+
+---
+
+5. 若产生一个4行30列的多行文本域，在以下方法中，正确的是()
+A. <input type="text" rows="4" cols="30" name="txtintro">
+B. <textarea rows="4" cols="30" name="txtintro"></textarea>
+C. <textarea rows="4" cols="30" name="txtintro">
+D. <textarea rows="30" cols="4" name="txtintro"></textarea>
+答案：C
+
+6. 下列属性中用于设置文本框显示宽度的属性是()
+A. size
+B. maxlength
+C. value
+D. length
+答案：A
+
+---
+
+7. 下面对表单的说法错误的是()
+A. 表单在网页中用来给用户填写信息，从而能采集客户端信息，使网页具有交互信息的功能
+B. 当用户填写完信息后单击普通按钮做提交(submit)操作
+C. 一个表单用 <form></form> 标签来创建
+D. action 属性的值是指处理程序的程序名（包括网络路径、网址或相对路径）
+答案：B
+
+---
+
+8. 下面说法中错误的是()
+A. 在 HTML 语言中，<input> 标记具有重要的地位，它能够将浏览器中的控件载到 HTML 文档中，该标记既有开始标记，又有结束标记
+B. <input type="text"> 是设定一个单行的文本输入区域
+C. size 属性指定控件宽度，表示该文本输入框所能显示的最大字符数
+D. maxlength 属性表示该文本输入框允许用户输入的最大字符数
+答案：A
+
+---
+
+9. 下面对于按钮的说法中正确的是()
+A. 按钮可分为普通按钮、提交按钮和重置按钮
+B. <input type="button"> 表示这是一个提交到服务器的按钮
+C. <input type="reset"> 表示这是一个普通按钮
+D. name 属性用来指定按钮页面显示的名称
+答案：A
+
+---
+
+10. 下面说法中错误的是()
+A. <input type="checkbox" checked> 中的 checked 属性用来设置该复选框默认是否被选中
+B. <input type="hidden"> 表示一个隐藏区域，用户可以在其中输入某些要传送的信息
+C. <input type="password"> 表示这是一个密码区域，当用户输入密码时区域内将会显示“。”号
+D. <input type="radio"> 表示这是一个单选按钮
+答案：B
+
+---
+
+11. 下列说法中错误的是()
+A. <select></select> 标记用来创建一个菜单下拉列表框
+B. 下拉列表框中的 multiple 属性不用赋值，直接加入到标记中即可使用，加入此属性后列表框就可以多选
+C. <option> 标记用来指定列表框中的一个选项
+D. 不可以规定输入多行的文本区的大小
+答案：D
+
+---
+
+12. 下面对于样式表的说法中错误的是()
+A. CSS 就是 Cascading Style Sheets，中文翻译为“层叠样式表”，简称样式表
+B. 将 CSS 指定的格式加入到 HTML 中的方法有两种
+C. 外部链接 CSS 时需要在 HTML 文件里加一个超链接，连接到外部的 CSS 文档
+D. 内部定义 CSS 时需要在 HTML 文件内的 <head></head> 标签对之间加一段 CSS 的描述内容
+答案：C
+
+---
+
+13. 下面对于样式表的说法中错误的是()
+A. CSS 的定义由 3 个部分构成，即选择符 (selector)、属性 (properties) 和属性的取值 (value)
+B. 选择符可以是多种形式，一般是要定���样式的 HTML 标记，用户可以通过此方法定义它的属性和值，属性和值要用逗号隔开
+C. CSS 可以定义字体属性
+D. CSS 可以定义颜色和背景属性
+答案：B
+
+---
+
+14. 下列说法中错误的是()
+A. p { font-family: "sans serif" } 定义段落字体为 sans serif
+B. p { text-align: center; color: red } 定义段落居中排列，并且段落中的文字为红色
+C. background-image 属性用来设置背景图片
+D. background-color 属性用来设置背景颜色
+答案：A
+
+---
+
+15. () 对象表示浏览器的窗口，可用来检索关于该窗口状态的信息。
+A. document
+B. window
+C. location
+D. history
+答案：B
+
+---
+
+16. () 对象表示给定浏览器窗口中的 HTML 文档，用来检索关于文档的信息。
+A. document
+B. window
+C. screen
+D. history
+答案：A
+
+---
+
+17. () 方法要求窗口显示刚刚访问的前一个页面。
+A. back()
+B. go()
+C. display()
+D. view()
+答案：A
+
+---
+
+18. 有关变量的命名规则，下列说法中错误的是()
+A. 以字母、下划线 (_) 或美元符号 ($) 开头
+B. 首字符之外的字符可以是下划线、美元符号，或任何的字母、数字
+C. 不能有空格，不区分大小写
+D. 不能使用 JavaScript 中的关键字或保留字命名
+答案：C
+
+---
+
+19. 单击按钮触发的事件是()
+A. onClick
+B. onFocus
+C. onChange
+D. onLoad
+答案：A
+
+---
+
+20. 页面加载时产生的事件是()
+A. onClick
+B. onFocus
+C. onChange
+D. onLoad
+答案：D
+
+
+
+第二章
+
+1. 当用户请求 JSP 页面时，JSP 引擎将会执行该页面的字节码文件响应客户的请求。执行字节码文件的结果是()
+A. 发送一个 JSP 源文件到客户端
+B. 发送一个 Java 文件到客户端
+C. 发送一个 HTML 页面到客户端
+D. 什么都不做
+答案：C
+
+
+
+第三章
+
+1. 用户可以在以下()标记之间插入 Java 程序片。
+A. <% 和 %>
+B. <% 和 /
+C. </ 和 %>
+D. <% 和 !>
+答案：A
+
+---
+
+2. JSP 的 page 指令的 language 属性的默认值是()。
+A. Java
+B. C
+C. C#
+D. SQL
+答案：A
+
+---
+
+3. 用户可以在以下()标记之间插入变量与方法声明。
+A. <% 和 %>
+B. <% ! 和 %>
+C. </ 和 %>
+D. <% 和 !>
+答案：B
+
+---
+
+4. 下列变量声明在()范围内有效。
+
+    <%!	Date dateTime
+    		int countName
+    >%
+
+A. 从定义开始处有效，客户端之间不共享
+B. 在整个页面内有效，客户端之间不共享
+C. 在整个页面内有效，被多个客户端共享
+D. 从定义开始处有效，被多个客户端共享
+答案：D
+
+---
+
+5. 在 "<%!" 和 "%>" 标记之间声明的 Java 方法称为页面的成员方法，其()有效。
+A. 从定义处之后
+B. 在整个页面内
+C. 从定义处之前
+D. 不确定
+答案：B
+
+---
+
+6. 在 "<%=" 和 "%>" 标记之间放置() 可以直接输出其值。
+A. 变量
+
+B. Java 表达式
+
+C. 字符串
+
+D. 数字
+
+答案：B
+
+---
+
+7. include 指令用于在 JSP 页面中静态插入一个文件，所插入文件可以是 JSP 页面、HTML 网页、文本文件或一段 Java 代码，但必须保证插入后形成的文件是()。
+A. 一个完整的 HTML 文件
+B. 一个完整的 JSP 文件
+C. 一个完整的 TXT 文件
+D. 一个完整的 Java 源文件
+答案：B
+
+---
+
+8. JSP 页面可以在 "<%=" 和 "%>" 标记之间放置 Java 表达式，直接输出 Java 表达式的值，组成 "<%=" 标记的各字符之间()。
+A. 可以有空格
+B. 不可以有空格
+C. 必须有空格
+D. 不确定
+答案：B
+
+
+
+第四章
+
+1. 下面()操作不能关闭 session 对象。
+A. 用户刷新当前页面
+B. 用户关闭浏览器
+C. session 达到设置的最长“发呆”时间
+D. session 对象的 invalidate() 方法
+答案：A
+
+---
+
+2. 有如下程序片段：
+
+    <form>
+      <input type="text" name="id">
+      <input type="submit" value="提交">
+    </form>
+
+下面()语句可以获取用户输入的信息。
+A. request.getParameter("id");
+B. request.getAttribute("submit");
+C. session.getParameter(key, "id");
+D. session.getAttribute(key, "id");
+答案：A
+
+---
+
+3. 下面的()内置对象是对客户的请求做出响应，向客户端发送数据的。
+A. request
+B. session
+C. response
+D. application
+答案：C
+
+---
+
+4. 可以使用()方法实现客户的重定向。
+A. response.setStatus();
+B. response.setHeader();
+C. response.setContentType();
+D. response.sendRedirect();
+答案：D
+
+---
+
+5. 下面不属于 JSP 内置对象的是()。
+A. out 对象
+B. response 对象
+C. application 对象
+D. cookie 对象
+答案：D
+
+---
+
+6. 下面对象中作用域最大的是()。
+A. page
+B. request
+C. application
+D. session
+答案：C
+
+---
+
+7. 在 JSP 中保存用户会话信息使用()对象。
+A. page
+B. request
+C. application
+D. session
+答案：D
+
+---
+
+8. 如果选择一个对象保存聊天室信息，则选择()。
+A. page
+B. request
+C. application
+D. session
+答案：C
+
+第五章
+
+1. 下面方式中正确使用 JavaBean 的是()。
+A. <jsp:useBean id="address" class="tom.AddressBean" scope="page"/>
+B. <jsp:useBean name="address" class="tom.AddressBean" scope="page"/>
+C. <jsp:useBean bean="address" class="tom.AddressBean" scope="page" />
+D. <jsp:useBean beanName="address" class="AddressBean" scope="page" />
+答案：A
+
+---
+
+2. JavaBean 中方法访问属性必须是()。
+A. private
+B. public
+C. protected
+D. friendly
+答案：B
+
+---
+
+3. 在 JSP 中调用 JavaBean 时不会用到的标记是()。
+A.javabean
+
+C.jsp:setProperty
+
+B.jsp:useBean
+
+D.jsp:getProperty
+答案：A
+
+---
+
+4. JavaBean 的作用域可以是()，page、session 和 application。
+A. request
+B. response
+C. out
+D. 以上都不对
+答案：A
+
+---
+
+5. 在 test.jsp 文件中有如下一行代码：
+
+    jsp
+    
+    <jsp:useBean class="tom.jiafei.Test" id="user" scope="_____"/>
+
+要使 user 对象一直存在于会话中，直到终止或被删除为止，在下划线处应填入()。
+A. page
+B. request
+C. session
+D. application
+答案：C
+
+---
+
+6. 在 JSP 中使用 <jsp:useBean> 动作可以将 JavaBean 引入 JSP 页面，对 JavaBean 的访问范围不能是()。
+A. page
+B. request
+C. response
+D. application
+答案：C
+
+---
+
+7. 下面语句与 <jsp:getProperty name="aBean" property="jsp"/> 等价的是()。
+A. <%=jsp()%>
+B. <%out.print(aBean.getIsp();%>
+C. <%aBean.setJsp()%>
+D. <%=aBean.setIsp();%>
+答案：B
+
+---
+
+8. 以下是有关 <jsp:setProperty> 和 <jsp:getProperty> 标记的描述，正确的是()。
+A. <jsp:setProperty> 和 <jsp:getProperty> 标记都必须在 <jsp:useBean> 的开始标记和结束标记之间
+B. 这两个标记的 name 属性值必须与 <jsp:useBean> 标记的 id 属性值相对应
+C. 这两个标记的 name 属性值可以与 <jsp:useBean> 标记的 id 属性值不同
+D. 以上均不对
+答案：B
+
+---
+
+9. 在 JSP 中使用 <jsp:getProperty> 标记时不会出现的属性是()。
+A. name
+B. property
+C. value
+D. 以上皆不会出现
+答案：B
+
+
+
+第六章
+
+1. 下列选项中，() 不是 Servlet 中使用的方法
+A. doGet()
+B. doPost()
+C. service()
+D. close()
+答案：D
+
+2. 下列选项中，对 Servlet 描述错误的是()。
+A. Servlet 是一个特殊的 Java 类，它必须直接或间接实现 Servlet 接口
+B. Servlet接口定义了Servlet的生命周期方法
+c.多个客户请求一个Servlet时，服务器为每一个客户启动一个进程
+D.Servlet客户线程调用service方法响应客户的请求
+答案：C
+
+3. 下列 Servlet 的方法中，() 方法载入时执行，且只执行一次，负责对Servlet进行初始化
+A. service()
+B. init()
+C. doPost()
+D. destroy()
+答案：B
+
+4. 下列 Servlet 的方法中，() 当服务器关闭时被调用，用来释放 Servlet 所占的资源。
+A. service()
+B. init()
+C. doPost()
+D. destroy()
+答案：D
+
+5. 下列Servlet的方法中，（）方法用来为请求服务，在Servlet生命周期中，Servlet每被请求一次就会被调用一次。
+A. service()
+B. init()
+C. doPost()
+D. destroy()
+答案：A
+
+6. 阅读下面代码片段：
+
+    JavaBeanClass bean = new JavaBeanClass(parameter);
+    HttpSession session = request.getSession(true);
+    session.setAttribute("keyword", bean);
+
+关于该段代码创建的 bean，下列叙述正确的是()。
+A. request 周期的 bean
+B. application 周期的 bean
+C. session 周期的 bean
+D. page 周期的 bean
+答案：C
+
+7. 阅读下面代码片段：
+
+    RequestDispatcher dispatcher = request.getRequestDispatcher("a.jsp");
+    dispatcher.forward(request, response);
+
+关于该段代码的作用，下列叙述正确的是()。
+A. 页面重定向到 a.jsp 页面
+B. 将请求转发到 a.jsp 页面
+C. 从 a.jsp 定向到当前页面
+D. 从 a.jsp 转发到当前页面
+答案：B
+
+
+
+第九章
+
+1. 在 Web 应用程序中有以下程序代码段，执行后转发到某个 JSP 页面:
+ArrayList<String> dogNames = new ArrayList<String>();
+dogNames.add("goodDog");
+request.setAttribute("dogs", dogNames);
+下列选项中，()可以正确地使用 EL 取得数组中的值。
+A. ${ dogs .0}
+B. ${ dogs [0]}
+C. ${ dogs .[0]}
+D. ${ dogs "0"}
+答案：B
+
+2. JSTL 标签()可以实现 Java 程序中的 if 语句功能。
+A. <c:set>
+B. <c:out>
+C. <c:forEach>
+D. <c:if>
+答案：D
+
+3. ()不是 EL 的隐含对象。
+A. request
+B. pageScope
+C. sessionScope
+D. applicationScope
+答案：A
+
+4. JSTL 标签()可以实现 Java 程序中的 for 语句功能。
+A. <c:set>
+B. <c:out>
+C. <c:forEach>
+D. <c:if>
+答案：C
+
+5. 与<jsp:include>功能类似的 JSTL 标签是()。
+A. <c:url>
+B. <c:redirect>
+C. <c:include>
+D. <c:import>
+答案：C
+
+---
+
+
+
+第十一章 JDBC
+
+4. 下列选项中，()不是 JDBC 的工作任务。
+A. 与数据库建立连接
+B. 操作数据库，处理数据库返回的结果
+C. 在网页中生成表格
+D. 向数据库管理系统发送 SQL 语句
+答案：C
+
+5. 在 JDBC 中，()接口不能被 Connection 创建。
+A. Statement
+B. PreparedStatement
+C. CallableStatement
+D. RowsetStatement
+答案：D
+
+6. 查询结果集 ResultSet 对象是以统一的行列形式组织数据的，执行 "ResultSet rs = stmt.executeQuery ("select bid,name,author,publish,price from book");" 语句，得到的结果集 rs 的列数为()
+A. 4
+B. 5
+C. 6
+D. 不确定
+答案：B
+
+7. 给出了如下的查询条件字符串 "String condition="insert book values(?,?,?,?,?);"，()接口适合执行该 SQL 查询。
+A. Statement
+B. PreparedStatement
+C. CallableStatement
+D. 不确定
+答案：B
+
+---
+
+
+
+第十二章 AJAX
+
+1. XMLHttpRequest 对象有()个返回状态值。
+A. 3
+B. 4
+C. 5
+D. 6
+答案：C
+
+2. 对象 XMLHttpRequest 的属性 readyState 值为()表示异步访问服务器通信已完成。
+A. 1
+B. 2
+C. 3
+D. 4
+答案：D
+
+---
+
+
+
+第十四章 Struts
+
+1. result 的类型 redirectAction 表示()
+A. 处理 action 链，跳转到下一个 action
+B. 转发到一个 JSP
+C. 重定向到下一个 action
+D. 重定向到一个 JSP
+答案：C
+
+2. result 的类型 redirect 表示()
+A. 处理 action 链，跳转到下一个 action
+B. 转发到一个 JSP
+C. 重定向到下一个 action或一个JSP
+D. 重定向到一个 JSP
+答案：C
+
+3. Struts 2 的默认配置文件是()
+A. web.xml
+B. struts.xml
+C. user.xml
+D. server.xml
+答案：B
+
+4. 某 action 的配置如下：
+<action name="hello" class="action.HelloAction">
+    <result name="error">/error.jsp</result>
+</action>
+当执行该 action 时会调用对象的() 方法。
+A. execute()
+B. doPost()
+C. doGet()
+D. service()
+答案：A
+
+5. 在 Struts 2 的 Web 应用中 hello 中 struts.xml 的配置如下：
+<package name="user" extends="struts-default" namespace="/my">
+    <action name="hello" class="action.HelloAction">
+        <result>/success.jsp</result>
+    </action>
+</package>
+需要访问该 URL 地址是()
+A. http://localhost:8080/hello/user/hello.action
+B. http://localhost:8080/hello/my/hello.jsp
+C. http://localhost:8080/hello/my/hello.action
+D. http://localhost:8080/hello/user/hello.jsp
+答案：C
+
+6. result 的类型 dispatcher 表示()
+A. 处理 action 链，跳转到下一个 action
+B. 转发到一个 JSP
+C. 重定向到下一个 action
+D. 重定向到一个 JSP
+答案：B
+
+7. 某 action 的配置如下：
+<action name="hello" class="action.HelloAction">
+    <result name="main.jsp">/main.jsp</result>
+    <result name="success">/success.jsp</result>
+    <result name="error">/error.jsp</result>
+    <result name="input">/login.jsp</result>
+</action>
+请根据 action 返回值是"success"，则显示的页面是()
+A. main.jsp
+B. success.jsp
+C. error.jsp
+D. login.jsp
+答案：B
+
+8. 某 action 的配置如下：
+<action name="hello">
+    <result>/success.jsp</result>
+</action>
+访问该 action 时会调用() 类。
+A. Action
+B. ActionSupport
+C. HelloAction
+D. UserAction
+答案：B
+
+9. 某 action 的配置如下：
+<action name="hello" class="action.HelloAction" method="update">
+    <result>/success.jsp</result>
+</action>
+访问该 action 时会执行 HelloAction 类中的() 方法。
+A. execute()
+B. delete()
+C. select()
+D. update()
+答案：D
+
+---
+
+

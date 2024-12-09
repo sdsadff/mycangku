@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>JDBC编程练习</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a73e8, #289cf5);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: flex-start;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .show-all {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .hide-all {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .reset {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            color: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            white-space: pre;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+        }
+
+        .inline-answer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .answer-input {
+            background-color: #fff;
+            color: #2d3748;
+            border: 1px solid #cbd5e0;
+            width: 100%;
+            max-width: 500px;
+            padding: 4px 10px;
+            height: 28px;
+            font-size: 13px;
+            font-family: 'Consolas', monospace;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .answer-input:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 2px rgba(66,153,225,0.2);
+        }
+
+        .check-button {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .check-button:hover {
+            background-color: #3182ce;
+        }
+
+        .hint {
+            font-size: 12px;
+            margin: 4px 0 0 4px;
+            color: #718096;
+            display: none;
+        }
+
+        .result {
+            margin-top: 4px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+        }
+
+        .correct {
+            background-color: #f0fff4;
+            color: #38a169;
+            border: 1px solid #c6f6d5;
+        }
+
+        .incorrect {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            border: 1px solid #fed7d7;
+        }
+
+        .score-card {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            min-width: 150px;
+            max-width: calc(100% - 40px);
+            z-index: 1000;
+            border: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            transform-origin: top right;
+            transition: all 0.3s ease;
+        }
+
+        .score-content {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .score-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a73e8;
+            line-height: 1;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .score-total {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .score-progress {
+            height: 4px;
+            background: #eee;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .score-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1a73e8, #4CAF50);
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .score-card {
+                position: fixed;
+                bottom: 20px;
+                top: unset;
+                right: 50%;
+                transform: translateX(50%);
+                flex-direction: row;
+                padding: 10px 20px;
+                min-width: unset;
+                width: auto;
+                max-width: 90%;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
+            }
+
+            .score-content {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+
+            .score-progress {
+                width: 60px;
+                margin-top: 0;
+                flex-shrink: 0;
+            }
+        }
+
+        /* 小屏幕设备适配 */
+        @media (max-width: 480px) {
+            .score-card {
+                padding: 8px 15px;
+                gap: 10px;
+            }
+
+            .score-number {
+                font-size: 24px;
+            }
+
+            .score-total {
+                font-size: 14px;
+            }
+
+            .score-label {
+                font-size: 12px;
+            }
+        }
+
+        /* 横屏模式适配 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .score-card {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                min-width: 120px;
+            }
+
+            .score-number {
+                font-size: 20px;
+            }
+
+            .score-progress {
+                height: 3px;
+                margin-top: 4px;
+            }
+        }
+
+        /* 确保得分卡片不会被其他元素遮挡 */
+        .control-panel {
+            padding-right: 180px;
+        }
+
+        @media (max-width: 768px) {
+            .control-panel {
+                padding-right: 30px;
+            }
+
+            .question-container {
+                margin-bottom: 80px;
+            }
+        }
+
+        /* 添加滚动时的样式变化 */
+        .score-card.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: translateY(0) scale(0.9);
+        }
+
+        /* 得分变化动画优化 */
+        @keyframes scoreChange {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: #4CAF50; }
+            100% { transform: scale(1); }
+        }
+
+        .score-change {
+            animation: scoreChange 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .answer-input {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* 添加平滑滚动效果 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 添加代码行号 */
+        .code-line {
+            position: relative;
+            padding-left: 3.5em;
+            counter-increment: line;
+        }
+
+        .code-line::before {
+            content: counter(line);
+            position: absolute;
+            left: 0;
+            color: #a0aec0;
+            padding-right: 1em;
+            width: 2.5em;
+            text-align: right;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        /* 添加工具提示 */
+        .tooltip {
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: help;
+            color: #61afef;
+            font-size: 18px;
+        }
+
+        /* 添加进度条 */
+        .progress-bar {
+            height: 4px;
+            background: #ddd;
+            margin: 20px 0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        /* 优化控制面板 */
+        .control-panel {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 30px;
+        }
+
+        /* 添加键盘快捷键提示 */
+        .keyboard-shortcut {
+            display: inline-block;
+            padding: 2px 6px;
+            background: #f1f1f1;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #666;
+            margin-left: 8px;
+        }
+
+        /* 优化分数显示 */
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .score-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        /* 注释文字样式 */
+        .code-comment {
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* 关键字样式 */
+        .code-keyword {
+            color: #805ad5;
+            font-weight: 500;
+        }
+
+        /* 字符串样式 */
+        .code-string {
+            color: #38a169;
+        }
+
+        /* 类名样式 */
+        .code-class {
+            color: #3182ce;
+        }
+
+        /* 方法名样式 */
+        .code-method {
+            color: #d69e2e;
+        }
+
+        /* 答案区域样式优化 */
+        .answer-section {
+            position: relative;
+            margin: 10px 0;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .answer-section:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        /* 提交按钮样式优化 */
+        .submit-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            margin-left: 8px;
+            background: linear-gradient(to bottom, #4299e1, #3182ce);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(to bottom, #3182ce, #2c5282);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .submit-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .button-icon {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* 答案显示动画 */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 结果显示样式优化 */
+        .result {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .result.correct {
+            background: linear-gradient(to right, #f0fff4, #f7fdf7);
+            border-left: 3px solid #38a169;
+        }
+
+        .result.incorrect {
+            background: linear-gradient(to right, #fff5f5, #fff8f8);
+            border-left: 3px solid #e53e3e;
+        }
+
+        /* 提示图标 */
+        .hint-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        .correct .hint-icon {
+            background: #38a169;
+            color: white;
+        }
+
+        .incorrect .hint-icon {
+            background: #e53e3e;
+            color: white;
+        }
+
+        /* 显示答案按钮样式优化 */
+        .show-answer-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background: none;
+            border: 1px solid #e53e3e;
+            color: #e53e3e;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
+
+        .show-answer-btn:hover {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .show-answer-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 答案显示区域 */
+        .answer-display {
+            margin-top: 4px;
+            padding: 12px;
+            background: linear-gradient(to right, #f8fafc, #fff);
+            border-radius: 6px;
+            border-left: 3px solid #4299e1;
+            font-family: 'Consolas', monospace;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* 显示时的样式 */
+        .answer-display.visible {
+            display: block !important;
+            animation: slideIn 0.3s ease;
+        }
+
+        .answer-display .answer-label {
+            color: #4a5568;
+            font-size: 12px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .answer-display .answer-label::before {
+            content: "✨";
+            color: #4299e1;
+        }
+
+        .answer-display code {
+            display: block;
+            color: #3182ce;
+            padding: 8px;
+            background: rgba(66,153,225,0.05);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* 进度指示器 */
+        .progress-indicator {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        /* 优化按钮禁用状态 */
+        .submit-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 提示文本样式 */
+        .hint {
+            font-size: 12px;
+            color: #718096;
+            margin: 6px 0;
+            padding-left: 8px;
+            border-left: 2px solid #e2e8f0;
+            font-style: italic;
+            display: none;
+        }
+
+        .hint.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* 添加提示按钮 */
+        .hint-button {
+            font-size: 12px;
+            color: #718096;
+            background: none;
+            border: none;
+            padding: 2px 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .hint-button:hover {
+            color: #4a5568;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .back-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button" onclick="goBack()">
+            <span class="back-icon">←</span>
+            返回
+        </div>
+        <h1>JDBC编程练习</h1>
+        <p>通过实践提升JDBC编程能力</p>
+    </div>
+
+    <div class="control-panel">
+        <div class="button-group">
+            <button class="control-button show-all" onclick="showAllAnswers()">
+                显示所有答案
+                <span class="keyboard-shortcut">Alt + A</span>
+            </button>
+            <button class="control-button hide-all" onclick="hideAllAnswers()">
+                隐藏所有答案
+                <span class="keyboard-shortcut">Alt + H</span>
+            </button>
+            <button class="control-button reset" onclick="resetAnswers()">
+                重置
+                <span class="keyboard-shortcut">Alt + R</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="score-card">
+        <div class="score-content">
+            <div class="score-label">当前得分</div>
+            <div class="score-value">
+                <span class="score-number" id="totalScore">0</span>
+                <span class="score-total">/ 30</span>
+            </div>
+        </div>
+        <div class="score-progress">
+            <div class="score-progress-bar" id="scoreProgressBar"></div>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress" id="progressBar"></div>
+    </div>
+
+    <div class="question-container">
+        <h2>练习题（30分）</h2>
+        <p>在代码的空白处直接填写答案：</p>
+        <div class="code-block">
+@WebServlet("/goodsServlet")
+public class GoodsServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    // 处理GET请求
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Goods> allGoods = null;
+        
+        // 关键步骤 1: 加载数据库驱动（4分）
+        try {
+            <div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer1" 
+                           data-answer="Class.forName(&quot;com.mysql.jdbc.Driver&quot;)">
+                    <button class="submit-button" onclick="checkAnswer(1)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：使用Class.forName()方法加载MySQL驱动</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay1"></div>
+                </div>
+            </div>
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            // 关键步骤 2: 连接数据库（5分）
+            con = <div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer2" 
+                           data-answer="DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&quot;, &quot;root&quot;, &quot;root&quot;)">
+                    <button class="submit-button" onclick="checkAnswer(2)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：使用DriverManager.getConnection()方法，需要提供URL、用户名和密码</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay2"></div>
+                </div>
+            </div>
+            
+            // 关键步骤 3: 执行插入商品操作（6分）
+            ps = con.prepareStatement(<div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer3" 
+                           data-answer="insert into goods values(null,?,?)">
+                    <button class="submit-button" onclick="checkAnswer(3)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：编写插入SQL语句，使用?作为参数占位符</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay3"></div>
+                </div>
+            </div>);
+            request.setCharacterEncoding("utf-8");
+            ps.setString(1, request.getParameter("gname"));
+            ps.setString(2, request.getParameter("gprice"));
+            <div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer4" 
+                           data-answer="ps.executeUpdate()">
+                    <button class="submit-button" onclick="checkAnswer(4)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：使用executeUpdate()方法执行插入操作</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay4"></div>
+                </div>
+            </div>
+
+            // 关键步骤 4: 执行查询操作（5分）
+            ps = con.prepareStatement("select * from goods");
+            <div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer5" 
+                           data-answer="rs = ps.executeQuery()">
+                    <button class="submit-button" onclick="checkAnswer(5)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：使用executeQuery()方法执行查询操作</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay5"></div>
+                </div>
+            </div>
+            
+            // 关键步骤 5: 遍历结果集（4分）
+            allGoods = new ArrayList<Goods>();
+            while (<div class="inline-answer">
+                <div class="input-area">
+                    <input type="text" class="answer-input" id="answer6" 
+                           data-answer="rs.next()">
+                    <button class="submit-button" onclick="checkAnswer(6)">
+                        <span class="button-icon">✓</span>
+                        提交
+                    </button>
+                </div>
+                <div class="feedback-area">
+                    <div class="hint">提示：使用next()方法遍历结果集</div>
+                    <div class="result"></div>
+                    <div class="answer-display" id="answerDisplay6"></div>
+                </div>
+            </div>) {
+                Goods g = new Goods();
+                g.setId(rs.getInt(1));
+                g.setGname(rs.getString(2));
+                g.setGprice(rs.getDouble(3));
+                allGoods.add(g);
+            }
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // 关键步骤 6: 存储数据到request（3分）
+        <div class="inline-answer">
+            <div class="input-area">
+                <input type="text" class="answer-input" id="answer7" 
+                       data-answer="request.setAttribute(&quot;allGoods&quot;, allGoods)">
+                <button class="submit-button" onclick="checkAnswer(7)">
+                    <span class="button-icon">✓</span>
+                    提交
+                </button>
+            </div>
+            <div class="feedback-area">
+                <div class="hint">提示：使用setAttribute()方法存储数据</div>
+                <div class="result"></div>
+                <div class="answer-display" id="answerDisplay7"></div>
+            </div>
+        </div>
+        
+        // 关键步骤 7: 转发请求（3分）
+        RequestDispatcher dis = request.getRequestDispatcher("showAllGoods.jsp");
+        <div class="inline-answer">
+            <div class="input-area">
+                <input type="text" class="answer-input" id="answer8" 
+                       data-answer="dis.forward(request, response)">
+                <button class="submit-button" onclick="checkAnswer(8)">
+                    <span class="button-icon">✓</span>
+                    提交
+                </button>
+            </div>
+            <div class="feedback-area">
+                <div class="hint">提示：使用forward()方法转发请求</div>
+                <div class="result"></div>
+                <div class="answer-display" id="answerDisplay8"></div>
+            </div>
+        </div>
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+}</div>
+    </div>
+
+    <script src="jdbc-practice.js"></script>
+    <script>
+        function goBack() {
+            // 添加退出动画
+            document.body.style.animation = 'fadeOut 0.3s ease forwards';
+            
+            // 延迟跳转
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 300);
+        }
+
+        // 添加进入动画
+        window.addEventListener('load', () => {
+            document.body.style.animation = 'fadeIn 0.3s ease forwards';
+        });
+
+        // 监听滚动事件，调整得分卡片样式
+        window.addEventListener('scroll', function() {
+            const scoreCard = document.querySelector('.score-card');
+            if (window.scrollY > 100) {
+                scoreCard.classList.add('scrolled');
+            } else {
+                scoreCard.classList.remove('scrolled');
+            }
+        });
+
+        // 监听窗口大小变化，调整得分卡片位置
+        window.addEventListener('resize', function() {
+            const scoreCard = document.querySelector('.score-card');
+            if (window.innerWidth <= 768) {
+                // 移动端布局
+                scoreCard.style.transform = 'translateX(50%)';
+            } else {
+                // 桌面端布局
+                scoreCard.style.transform = 'none';
+            }
+        });
+
+        // 初始化时检查窗口大小
+        window.addEventListener('load', function() {
+            if (window.innerWidth <= 768) {
+                const scoreCard = document.querySelector('.score-card');
+                scoreCard.style.transform = 'translateX(50%)';
+            }
+        });
+    </script>
+</body>
+</html> 
